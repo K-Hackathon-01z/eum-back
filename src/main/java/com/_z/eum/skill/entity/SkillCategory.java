@@ -1,0 +1,31 @@
+package com._z.eum.skill.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+
+@Entity
+@Table(name = "skill_category" )
+@Getter
+public class SkillCategory {
+
+    @Id
+    private int id;
+    private String name;
+
+    private  String category;
+    String description;
+    String imageUrl;
+    String careerPath;
+
+    protected SkillCategory(){}
+
+    public SkillCategory(String name, String category, String description, String imageUrl, String careerPath){
+        this.name = name;
+        this.category = category;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.careerPath = careerPath;
+    }
+}

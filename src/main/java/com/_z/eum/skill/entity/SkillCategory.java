@@ -28,4 +28,11 @@ public class SkillCategory {
         this.imageUrl = imageUrl;
         this.careerPath = careerPath;
     }
+
+    public void updateSkill(String category, String description, String imageUrl, String careerPath) {
+        this.category = category;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.careerPath = careerPath;
+    }
 }

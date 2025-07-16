@@ -2,8 +2,10 @@ package com._z.eum.skill.service;
 
 import com._z.eum.skill.dto.reponse.SkillCategoryResponse;
 import com._z.eum.skill.dto.request.SkillCategoryCreateRequest;
+import com._z.eum.skill.dto.request.SkillCategoryUpdateRequest;
 import com._z.eum.skill.entity.SkillCategory;
 import com._z.eum.skill.repository.SkillRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class SkillService {
         this.skillRepository = skillRepository;
     }
 
+    //기술 전체 조회
     public List<SkillCategoryResponse> getAllSkills(){
 
         //엔티티 리스트
@@ -58,6 +61,7 @@ public class SkillService {
 
     }
 
+    //기술 등록
     public SkillCategoryResponse createSkill(SkillCategoryCreateRequest request) {
 
         //요청 데이터를 기반으로 엔티티 생성
@@ -80,5 +84,41 @@ public class SkillService {
                 savedEntity.getImageUrl(),
                 savedEntity.getCareerPath()
         );
+    }
+
+    //기술 수정
+    @Transactional
+    public SkillCategoryResponse updateSkill(SkillCategoryUpdateRequest request){
+
+        SkillCategory skillCategory = findSkillByName(request.name());
+
+        skillCategory.updateSkill(
+                request.category(),
+                request.description(),
+                request.imageUrl(),
+                request.careerPath()
+        );
+
+        return new SkillCategoryResponse(
+                skillCategory.getId(),
+                skillCategory.getName(),
+                skillCategory.getCategory(),
+                skillCategory.getDescription(),
+                skillCategory.getImageUrl(),
+                skillCategory.getCareerPath()
+        );
+    }
+
+    //기술 삭제
+    @Transactional
+    public String deleteSkill(String skillName){
+
+        SkillCategory skillCategory = findSkillByName(skillName);
+        skillRepository.delete(skillCategory);
+        return skillName + " 기술이 삭제되었습니다.";
+    }
+
+    private SkillCategory findSkillByName(String name){
+        return skillRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("해당 이름의 기술이 존재하지 않음"));
     }
 }

@@ -2,6 +2,7 @@ package com._z.eum.skill.controller;
 
 
 import com._z.eum.skill.dto.request.SkillCategoryCreateRequest;
+import com._z.eum.skill.dto.request.SkillCategoryUpdateRequest;
 import com._z.eum.skill.service.SkillService;
 import com._z.eum.skill.dto.reponse.SkillCategoryResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,10 +38,26 @@ public class SkillController {
     }
 
 
-    //기술 카테고리 등록
-    @Operation(summary = "기술 카테고리 등록", description = "관리자 목록 : 기술 카테고리 등록")
-    @PostMapping
+    //관리자 모드 : 기술 카테고리 등록
+    @Operation(summary = "[관리자모드] 기술 카테고리 등록", description = "기술 카테고리 등록")
+    @PostMapping("/admin")
     public ResponseEntity<SkillCategoryResponse> createSkill(@RequestBody SkillCategoryCreateRequest request) {
         return ResponseEntity.ok(skillService.createSkill(request));
     }
+
+    //관리자 모드 : 기술 카테고리 수정
+    @Operation(summary = "[관리자] 기술 카테고리 수정", description = "특정 기술 카테고리 정보를 수정")
+    @PutMapping("/admin/{name}")
+    public ResponseEntity<SkillCategoryResponse> updateSkill(@PathVariable String name,
+                                                             @RequestBody SkillCategoryUpdateRequest request) {
+        return ResponseEntity.ok(skillService.updateSkill(request));
+    }
+
+    //관리자 모드 : 기술 카테고리 삭제
+    @Operation(summary = "[관리자] 기술 카테고리 삭제", description = "특정 기술 카테고리를 삭제")
+    @DeleteMapping("/admin/{name}")
+    public ResponseEntity<String> deleteSkill(@PathVariable String name) {
+        return ResponseEntity.ok(skillService.deleteSkill(name));
+    }
+
 }

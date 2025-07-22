@@ -88,9 +88,9 @@ public class SkillService {
 
     //기술 수정
     @Transactional
-    public SkillCategoryResponse updateSkill(SkillCategoryUpdateRequest request){
+    public SkillCategoryResponse updateSkill(String skillName, SkillCategoryUpdateRequest request){
 
-        SkillCategory skillCategory = findSkillByName(request.name());
+        SkillCategory skillCategory = findSkillByName(skillName);
 
         skillCategory.updateSkill(
                 request.category(),
@@ -119,6 +119,6 @@ public class SkillService {
     }
 
     private SkillCategory findSkillByName(String name){
-        return skillRepository.findByName(name).orElseThrow(() -> new NoSuchElementException("해당 이름의 기술이 존재하지 않음"));
+        return skillRepository.findByName(name).orElseThrow(() -> new NoSuchElementException(name + ": 해당 이름의 기술이 존재하지 않음"));
     }
 }

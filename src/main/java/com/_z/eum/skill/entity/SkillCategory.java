@@ -1,8 +1,6 @@
 package com._z.eum.skill.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -11,9 +9,9 @@ import lombok.Getter;
 public class SkillCategory {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
-
     private  String category;
     String description;
     String imageUrl;

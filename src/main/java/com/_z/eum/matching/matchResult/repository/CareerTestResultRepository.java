@@ -13,12 +13,13 @@ public interface CareerTestResultRepository extends JpaRepository<CareerTestOpti
     @Query("""
         SELECT new com._z.eum.matching.matchResult.dto.response.MatchResult(
                     s.skill.id,
+                    s.skill.name,
                     SUM(s.score)
                 )
                 FROM CareerTestOptionSkill s
                 JOIN s.option o
                 WHERE o.id IN :optionIds
-                GROUP BY s.skill.id
+                GROUP BY s.skill.id, s.skill.name
                 ORDER BY SUM(s.score) DESC
    
     """)

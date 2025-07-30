@@ -1,4 +1,4 @@
-package com._z.eum.matching.careerTest.dto.Response;
+package com._z.eum.matching.dto.Response;
 
 import org.w3c.dom.Text;
 

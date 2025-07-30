@@ -1,19 +1,22 @@
-package com._z.eum.matching.careerTest.service;
+package com._z.eum.matching.service;
 
-import com._z.eum.matching.careerTest.dto.Response.QuestionResponse;
-import com._z.eum.matching.careerTest.entity.CareerTestQuestion;
-import com._z.eum.matching.careerTest.repository.CareerTestRepository;
+import com._z.eum.matching.dto.Response.QuestionResponse;
+import com._z.eum.matching.entity.CareerTestQuestion;
+import com._z.eum.matching.repository.CareerTestRepository;
+import com._z.eum.matching.repository.CareerTestResultRepository;
+import com._z.eum.matching.dto.Response.MatchResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class CareerTestService {
 
     private final CareerTestRepository careerTestRepository;
+    private final CareerTestResultRepository careerTestResultRepository;
 
-    public CareerTestService(CareerTestRepository careerTestRepository){
+    public CareerTestService(CareerTestRepository careerTestRepository, CareerTestResultRepository careerTestResultRepository) {
+        this.careerTestResultRepository = careerTestResultRepository;
         this.careerTestRepository = careerTestRepository;
     }
 
@@ -41,7 +44,12 @@ public class CareerTestService {
                 })
                 .toList();
     }
+
+    public List<MatchResult> calculateTopSkills(List<Integer> optionIds) {
+        return careerTestResultRepository.findSkillScoresByOptionIds(optionIds)
+                .stream()
+                .limit(10)
+                .toList();
+    }
 }
-
-
 

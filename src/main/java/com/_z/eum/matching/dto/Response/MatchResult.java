@@ -1,4 +1,4 @@
-package com._z.eum.matching.matchResult.dto.response;
+package com._z.eum.matching.dto.Response;
 
 public record MatchResult(
         int skillId,

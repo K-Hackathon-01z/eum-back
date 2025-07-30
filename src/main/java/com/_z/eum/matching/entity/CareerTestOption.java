@@ -1,10 +1,9 @@
-package com._z.eum.matching.careerTest.entity;
+package com._z.eum.matching.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.Id;
-import org.w3c.dom.Text;
 
 @Entity
 @Table(name = "career_test_option")

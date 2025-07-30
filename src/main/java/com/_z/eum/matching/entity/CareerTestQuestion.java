@@ -1,4 +1,4 @@
-package com._z.eum.matching.careerTest.entity;
+package com._z.eum.matching.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

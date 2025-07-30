@@ -1,6 +1,5 @@
-package com._z.eum.matching.matchResult.entity;
+package com._z.eum.matching.entity;
 
-import com._z.eum.matching.careerTest.entity.CareerTestOption;
 import com._z.eum.skill.entity.SkillCategory;
 import jakarta.persistence.*;
 import lombok.Getter;

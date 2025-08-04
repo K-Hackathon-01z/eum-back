@@ -1,8 +1,11 @@
-# Java 17 슬림 이미지 사용
+# 1단계: 빌드 전용 레이어
+FROM gradle:8.4-jdk17 AS builder
+WORKDIR /app
+COPY . .
+RUN gradle bootJar
+
+# 2단계: 실제 실행용 레이어
 FROM openjdk:17-jdk-slim
-
-# JAR 복사 (파일명 정확히 입력)
-COPY build/libs/eum-0.0.1-SNAPSHOT.jar app.jar
-
-# 앱 실행
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]

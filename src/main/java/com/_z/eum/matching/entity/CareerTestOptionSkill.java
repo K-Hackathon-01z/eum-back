@@ -7,6 +7,9 @@ import lombok.Getter;
 @Entity
 @Table(name = "career_test_option_skill")
 @Getter
+
+//질문 선택지와 기술 간 점수 매핑용 엔티티
+//내부 로직용
 public class CareerTestOptionSkill {
 
     @Id

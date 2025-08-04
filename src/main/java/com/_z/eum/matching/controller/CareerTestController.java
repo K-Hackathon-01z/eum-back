@@ -32,7 +32,6 @@ public class CareerTestController {
         return ResponseEntity.ok(exists);
     }
 
-
     //모든 질문, 선택지 반환
     @Operation(summary = "전체 질문, 선택지 조회", description = "모든 질문지에 대한 선택지를 제공함")
     @GetMapping("/careerTest")
@@ -40,12 +39,14 @@ public class CareerTestController {
         return ResponseEntity.ok(careerTestService.getAllQuestions());
     }
 
+    //사용자 기술 저장 후 결과 반환
     @PostMapping("/submit/{userId}")
     @Operation(summary = "응답 제출 및 추천 기술 저장", description = "사용자의 선택지 ID 리스트를 기반으로 추천 기술 10개를 저장하고 반환")
     public ResponseEntity<List<MatchResult>> submitTest(@PathVariable Integer userId, @RequestBody MatchRequest request) {
         return ResponseEntity.ok(careerTestService.processCareerTest(userId, request.optionIds()));
     }
 
+    //이미 저장된 결과 반환
     @GetMapping("/recommendations/{userId}")
     @Operation(summary = "저장된 추천 기술 반환", description = "사용자의 추천 기술 리스트 10개를 반환")
     public ResponseEntity<List<MatchResult>> getRecommendations(@PathVariable Integer userId) {

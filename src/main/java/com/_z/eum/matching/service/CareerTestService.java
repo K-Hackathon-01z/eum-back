@@ -46,6 +46,7 @@ public class CareerTestService {
     }
 
 
+    //질문지, 선택지 반환
     public List<QuestionResponse> getAllQuestions() {
         List<CareerTestQuestion> questions = careerTestRepository.findAllByOrderByOrderNoAsc();
 
@@ -70,6 +71,7 @@ public class CareerTestService {
                 .toList();
     }
 
+    //신규 테스트 결과 저장 후 기술 리스트 반환
     public List<MatchResult> processCareerTest(Integer userId, List<Integer> optionIds) {
         List<MatchResult> results = careerTestOptionSkillRepository.findSkillScoresByOptionIds(optionIds)
                 .stream().limit(10).toList();
@@ -84,6 +86,7 @@ public class CareerTestService {
         return results;
     }
 
+    //저장된 결과 이력 조회 후 기술 리스트 반환
     public List<MatchResult> getSavedRecommendations(Integer userId) {
         CareerTestResult latestResult = careerTestResultRepository.findTopByUserIdOrderByUpdatedAtDesc(userId)
                 .orElseThrow(() -> new NoSuchElementException("검사 결과가 없습니다"));

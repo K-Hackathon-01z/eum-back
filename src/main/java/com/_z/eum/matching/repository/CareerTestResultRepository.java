@@ -1,29 +1,15 @@
 package com._z.eum.matching.repository;
 
-import com._z.eum.matching.dto.Response.MatchResult;
-import com._z.eum.matching.entity.CareerTestOptionSkill;
+import com._z.eum.matching.entity.CareerTestResult;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface CareerTestResultRepository extends JpaRepository<CareerTestOptionSkill, Integer> {
+public interface CareerTestResultRepository extends JpaRepository<CareerTestResult, Integer> {
 
-    @Query("""
-        SELECT new com._z.eum.matching.dto.Response.MatchResult(
-                    s.skill.id,
-                    s.skill.name,
-                    SUM(s.score)
-                )
-                FROM CareerTestOptionSkill s
-                JOIN s.option o
-                WHERE o.id IN :optionIds
-                GROUP BY s.skill.id, s.skill.name
-                ORDER BY SUM(s.score) DESC
-   
-    """)
-    List<MatchResult> findSkillScoresByOptionIds(@Param("optionIds") List<Integer> optionIds);
+    //검사 이력 조회
+    boolean existsByUserId(Integer userId);
+
+    //가장 최근 검사 결과 조회
+    Optional<CareerTestResult> findTopByUserIdOrderByUpdatedAtDesc(Integer userId);
 }

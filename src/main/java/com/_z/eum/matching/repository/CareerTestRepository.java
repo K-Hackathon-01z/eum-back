@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface CareerTestRepository extends JpaRepository<CareerTestQuestion,Integer> {
 
+    //질문지, 선택지 조회
     List<CareerTestQuestion> findAllByOrderByOrderNoAsc();
 
 }

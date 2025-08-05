@@ -4,14 +4,14 @@ package com._z.eum.user.controller;
 import com._z.eum.user.dto.request.LoginRequest;
 import com._z.eum.user.dto.request.PasswordUpdateRequest;
 import com._z.eum.user.dto.request.SignupRequest;
+import com._z.eum.user.entity.User;
 import com._z.eum.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -51,5 +51,14 @@ public class UserController {
         userService.updatePassword(request);
         return ResponseEntity.ok("비밀번호 변경 성공하였습니다.");
     }
+
+
+    // 전체 회원 조회
+    @GetMapping("/all")
+    @Operation(summary = "전체 회원 조회", description = "저장된 전체 회원의 정보 조회")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
 
 }

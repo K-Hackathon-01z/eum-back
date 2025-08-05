@@ -8,6 +8,7 @@ import com._z.eum.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -52,6 +53,11 @@ public class UserService {
         }
 
         user.setPassword(passwordUpdateRequest.newPassword());
+    }
+
+    // 전체 회원 조회
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }

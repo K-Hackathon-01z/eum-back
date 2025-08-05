@@ -1,7 +1,7 @@
-package com._z.eum.matching.repository;
+package com._z.eum.career.repository;
 
-import com._z.eum.matching.dto.Response.MatchResult;
-import com._z.eum.matching.entity.CareerTestOptionSkill;
+import com._z.eum.career.dto.Response.MatchResult;
+import com._z.eum.career.entity.CareerTestOptionSkill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

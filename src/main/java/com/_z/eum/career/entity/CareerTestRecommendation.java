@@ -3,10 +3,12 @@ package com._z.eum.career.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "careerTestRecommendation")
+@NoArgsConstructor
+@Table(name = "career_test_recommendation")
 public class CareerTestRecommendation {
 
     @Id
@@ -17,10 +19,11 @@ public class CareerTestRecommendation {
 
     private int ranking;
 
+    @Column(name = "skill_id", nullable = false)
     private int skillId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "career_test_result_id")
+    @JoinColumn(name = "career_test_result_id", nullable = false)
     private CareerTestResult careerTestResult;
 
     public CareerTestRecommendation(CareerTestResult result, int skillId, int score, int ranking) {
@@ -29,4 +32,5 @@ public class CareerTestRecommendation {
         this.score = score;
         this.ranking = ranking;
     }
+
 }

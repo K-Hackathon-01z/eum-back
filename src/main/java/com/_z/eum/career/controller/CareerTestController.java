@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/matching")
-@Tag(name = "매칭 테스트 질문지, 선택지 API", description = "질문지, 선택지 조회 및 선택 결과 반환 기능 제공")
+@Tag(name = "매칭 테스트 API", description = "질문지, 선택지 조회 및 선택 결과 반환 기능 제공")
 public class CareerTestController {
 
     private final CareerTestService careerTestService;

@@ -60,4 +60,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
+
+    // 이메일로 단일 회원 조회
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("해당 이메일의 회원이 존재하지 않습니다."));
+    }
+
 }

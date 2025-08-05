@@ -60,5 +60,13 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
+    // 이메일로 단일 회원 조회
+    @GetMapping("/{email}")
+    @Operation(summary = "이메일로 단일 회원 조회", description = "사용자 이메일로 해당 사용자의 정보 조회")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+
 
 }

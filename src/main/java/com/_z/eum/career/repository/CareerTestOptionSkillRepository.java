@@ -13,7 +13,7 @@ import java.util.List;
 public interface CareerTestOptionSkillRepository extends JpaRepository<CareerTestOptionSkill, Integer> {
 
     @Query("""
-        SELECT new com._z.eum.matching.dto.Response.MatchResult(
+        SELECT new com._z.eum.career.dto.Response.MatchResult(
                     s.skill.id,
                     s.skill.name,
                     SUM(s.score)

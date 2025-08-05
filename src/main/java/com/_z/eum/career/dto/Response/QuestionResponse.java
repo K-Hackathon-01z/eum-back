@@ -1,6 +1,4 @@
-package com._z.eum.matching.dto.Response;
-
-import org.w3c.dom.Text;
+package com._z.eum.career.dto.Response;
 
 import java.util.List;
 

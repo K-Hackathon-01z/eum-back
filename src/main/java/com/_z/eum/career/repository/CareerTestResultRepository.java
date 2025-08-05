@@ -1,6 +1,6 @@
-package com._z.eum.matching.repository;
+package com._z.eum.career.repository;
 
-import com._z.eum.matching.entity.CareerTestResult;
+import com._z.eum.career.entity.CareerTestResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

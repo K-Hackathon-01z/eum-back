@@ -1,7 +1,7 @@
-package com._z.eum.matching.repository;
+package com._z.eum.career.repository;
 
-import com._z.eum.matching.dto.Response.MatchResult;
-import com._z.eum.matching.entity.CareerTestOptionSkill;
+import com._z.eum.career.dto.Response.MatchResult;
+import com._z.eum.career.entity.CareerTestOptionSkill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +13,7 @@ import java.util.List;
 public interface CareerTestOptionSkillRepository extends JpaRepository<CareerTestOptionSkill, Integer> {
 
     @Query("""
-        SELECT new com._z.eum.matching.dto.Response.MatchResult(
+        SELECT new com._z.eum.career.dto.Response.MatchResult(
                     s.skill.id,
                     s.skill.name,
                     SUM(s.score)

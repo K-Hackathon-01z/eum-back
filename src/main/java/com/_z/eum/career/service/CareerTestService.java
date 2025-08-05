@@ -1,19 +1,17 @@
-package com._z.eum.matching.service;
+package com._z.eum.career.service;
 
-import com._z.eum.matching.dto.Response.QuestionResponse;
-import com._z.eum.matching.entity.CareerTestQuestion;
-import com._z.eum.matching.entity.CareerTestRecommendation;
-import com._z.eum.matching.entity.CareerTestResult;
-import com._z.eum.matching.repository.CareerTestRecommendationRepository;
-import com._z.eum.matching.repository.CareerTestRepository;
-import com._z.eum.matching.repository.CareerTestOptionSkillRepository;
-import com._z.eum.matching.dto.Response.MatchResult;
-import com._z.eum.matching.repository.CareerTestResultRepository;
-import com._z.eum.skill.entity.SkillCategory;
+import com._z.eum.career.dto.Response.QuestionResponse;
+import com._z.eum.career.entity.CareerTestQuestion;
+import com._z.eum.career.entity.CareerTestRecommendation;
+import com._z.eum.career.entity.CareerTestResult;
+import com._z.eum.career.repository.CareerTestRecommendationRepository;
+import com._z.eum.career.repository.CareerTestRepository;
+import com._z.eum.career.repository.CareerTestOptionSkillRepository;
+import com._z.eum.career.dto.Response.MatchResult;
+import com._z.eum.career.repository.CareerTestResultRepository;
 import com._z.eum.skill.repository.SkillRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;

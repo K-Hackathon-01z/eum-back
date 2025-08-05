@@ -1,4 +1,4 @@
-package com._z.eum.matching.entity;
+package com._z.eum.career.entity;
 
 import com._z.eum.skill.entity.SkillCategory;
 import jakarta.persistence.*;

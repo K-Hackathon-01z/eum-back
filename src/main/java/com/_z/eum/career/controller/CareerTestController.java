@@ -1,10 +1,10 @@
-package com._z.eum.matching.controller;
+package com._z.eum.career.controller;
 
 
-import com._z.eum.matching.dto.Response.QuestionResponse;
-import com._z.eum.matching.service.CareerTestService;
-import com._z.eum.matching.dto.Request.MatchRequest;
-import com._z.eum.matching.dto.Response.MatchResult;
+import com._z.eum.career.dto.Response.QuestionResponse;
+import com._z.eum.career.service.CareerTestService;
+import com._z.eum.career.dto.Request.MatchRequest;
+import com._z.eum.career.dto.Response.MatchResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;

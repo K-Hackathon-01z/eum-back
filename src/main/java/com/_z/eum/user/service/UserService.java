@@ -67,4 +67,12 @@ public class UserService {
                 .orElseThrow(() -> new NoSuchElementException("해당 이메일의 회원이 존재하지 않습니다."));
     }
 
+    // 회원 삭제 (이메일 기준)
+    public void deleteUserByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("해당 이메일의 회원이 존재하지 않습니다."));
+
+        userRepository.delete(user);
+    }
+
 }

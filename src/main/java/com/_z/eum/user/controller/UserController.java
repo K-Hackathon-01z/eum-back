@@ -52,6 +52,13 @@ public class UserController {
         return ResponseEntity.ok("비밀번호 변경 성공하였습니다.");
     }
 
+    // 회원 삭제
+    @DeleteMapping("/{email}")
+    @Operation(summary = "[관리자] 사용자 삭제", description = "사용자 삭제 기능")
+    public ResponseEntity<String> deleteUser(@PathVariable String email) {
+        userService.deleteUserByEmail(email);
+        return ResponseEntity.ok("회원 삭제 성공하였습니다.");
+    }
 
     // 전체 회원 조회
     @GetMapping("/all")

@@ -1,6 +1,7 @@
 // src/main/java/com/_z/eum/artisan/controller/ArtisanController.java
 package com._z.eum.artisan.controller;
 
+import com._z.eum.artisan.dto.request.ArtisanInfoUpdateRequest;
 import com._z.eum.artisan.dto.request.ArtisanRequest;
 import com._z.eum.artisan.dto.response.ArtisanResponse;
 import com._z.eum.artisan.service.ArtisanService;
@@ -33,7 +34,7 @@ public class ArtisanController {
     @PutMapping("/{id}")
     @Operation(summary = "장인 정보 변경", description = "사진, 작퓸, 약력를 입력 받아 변경 정보 수정 성공 여부를 반환")
     public ResponseEntity<String> update(@PathVariable Integer id,
-                                       @Valid @RequestBody ArtisanRequest request){
+                                       @Valid @RequestBody ArtisanInfoUpdateRequest request){
         artisanService.update(id, request);
         return ResponseEntity.ok("정보 변경 성공하였습니다.");
     }

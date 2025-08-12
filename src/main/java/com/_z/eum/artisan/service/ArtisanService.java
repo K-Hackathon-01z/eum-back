@@ -1,6 +1,7 @@
 package com._z.eum.artisan.service;
 
 
+import com._z.eum.artisan.dto.request.ArtisanInfoUpdateRequest;
 import com._z.eum.artisan.dto.request.ArtisanRequest;
 import com._z.eum.artisan.dto.response.ArtisanResponse;
 import com._z.eum.artisan.entity.Artisan;
@@ -58,7 +59,7 @@ public class ArtisanService {
 
     // 정보 수정
     @Transactional
-    public void update(Integer id, ArtisanRequest dto){
+    public void update(Integer id, ArtisanInfoUpdateRequest dto){
         Artisan artisan = artisanRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("장인을 찾을 수 없습니다. id=" + id));
 

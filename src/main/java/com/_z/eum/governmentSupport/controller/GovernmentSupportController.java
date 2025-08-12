@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GovernmentSupportController {
 
-
     private final GovernmentSupportService governmentSupportService;
 
     public GovernmentSupportController(GovernmentSupportService governmentSupportService){

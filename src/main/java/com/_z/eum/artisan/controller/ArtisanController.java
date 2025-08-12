@@ -5,6 +5,7 @@ import com._z.eum.artisan.dto.request.ArtisanRequest;
 import com._z.eum.artisan.dto.response.ArtisanResponse;
 import com._z.eum.artisan.service.ArtisanService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/artisans")
+@Tag(name = "장인 API", description = "등록, 정보 수정, 삭제 조회 기능 제공")
 public class ArtisanController {
 
     private final ArtisanService artisanService;

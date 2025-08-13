@@ -25,6 +25,7 @@ public class GovernmentSupport {
 
     private String targetAge;
 
+    @Column(columnDefinition = "TEXT")
     private String targetLocation;
 
     @Column(columnDefinition = "TEXT")

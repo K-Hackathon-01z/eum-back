@@ -23,7 +23,7 @@ public class YouthPolicyApiClient {
     public List<YouthPolicyResponse> fetchYouthPolicies() {
         String url = "https://www.youthcenter.go.kr/go/ythip/getPlcy" +
                 "?apiKeyNm=" + apiKey +
-                "&rtnType=json&pageSize=50" +
+                "&rtnType=json&pageSize=20" +
                 "&zipCd=11000";
 
         try {
@@ -32,7 +32,7 @@ public class YouthPolicyApiClient {
             );
 
             JsonNode root = response.getBody();
-            JsonNode policyList = root.path("youthPolicyList");
+            JsonNode policyList = root.path("result").path("youthPolicyList");
 
             List<YouthPolicyResponse> result = new ArrayList<>();
             for (JsonNode item : policyList) {
@@ -46,11 +46,13 @@ public class YouthPolicyApiClient {
                         item.path("aplyUrlAddr").asText()
                 ));
             }
+
             return result;
         } catch (Exception e) {
             e.printStackTrace();
             return List.of();
         }
     }
+
 }
 

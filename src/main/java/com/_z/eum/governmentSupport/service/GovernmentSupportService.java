@@ -52,9 +52,7 @@ public class GovernmentSupportService {
             System.out.println("[정책 수신] 수신된 정책 개수: " + fetched.size());
             saveOrUpdateGovernmentSupport(fetched);
 
-            // 필터 조건 완화 또는 제거: 주소 문자열은 법정동코드와 다를 수 있으므로 정책 매칭 안될 수 있음
             List<GovernmentSupport> filtered = govRepo.findAll().stream()
-                    // .filter(s -> location == null || s.getTargetLocation() == null || location.contains(s.getTargetLocation()))
                     .filter(s -> ageMatches(age, s.getTargetAge()))
                     .toList();
             System.out.println("[정책 필터링] 추천 대상 정책 개수: " + filtered.size());

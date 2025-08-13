@@ -7,11 +7,10 @@ public record GovernmentSupportResponse(
         String description,
         String category,
         String targetAge,
-        String targetLocation,
         String url
 ) {
     public GovernmentSupportResponse(GovernmentSupport s) {
         this(s.getTitle(), s.getDescription(), s.getCategory(),
-                s.getTargetAge(), s.getTargetLocation(), s.getUrl());
+                s.getTargetAge(), s.getUrl());
     }
 }

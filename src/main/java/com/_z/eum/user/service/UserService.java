@@ -75,4 +75,9 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public User getUserById(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("해당 아이디의 회원이 존재하지 않습니다."));
+
+    }
 }

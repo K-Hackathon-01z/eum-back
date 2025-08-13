@@ -2,11 +2,13 @@ package com._z.eum.governmentSupport.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name = "userSupport_result")
 public class UserSupportResult {
 
     @Id
@@ -14,7 +16,7 @@ public class UserSupportResult {
     private Integer id;
 
     @Column(nullable = false)
-    private Long userId;
+    private Integer userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "support_id", nullable = false)
@@ -26,5 +28,14 @@ public class UserSupportResult {
     @Column(nullable = false)
     private boolean isRead = false;
 
+    protected UserSupportResult(){}
+
+
+    public UserSupportResult(Integer userId, GovernmentSupport support, LocalDateTime recommendedAt, boolean isRead) {
+        this.userId = userId;
+        this.support = support;
+        this.recommendedAt = recommendedAt;
+        this.isRead = isRead;
+    }
 
 }

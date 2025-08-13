@@ -3,6 +3,9 @@ server:
   address: 0.0.0.0
 
 spring:
+  config:
+    import: optional:file:.env
+
   datasource:
     url: ${DATABASE_URL:jdbc:postgresql://dpg-d29f28qli9vc73flbje0-a.singapore-postgres.render.com:5432/eum_postgres}
     username: ${DB_USER:eum_postgres_user}

@@ -9,14 +9,20 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Value;
+
 @Component
 public class YouthPolicyApiClient {
+
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String API_KEY = "973ec1bd-c85a-4f07-98f7-ad0241070426";
+
+    @Value("${YOUTH_API_KEY}")
+    private String apiKey;
 
     public List<YouthPolicyResponse> fetchYouthPolicies() {
         String url = "https://www.youthcenter.go.kr/go/ythip/getPlcy" +
-                "?apiKeyNm=" + API_KEY +
+                "?apiKeyNm=" + apiKey +
                 "&rtnType=json&pageSize=50" +
                 "&zipCd=11000";
 

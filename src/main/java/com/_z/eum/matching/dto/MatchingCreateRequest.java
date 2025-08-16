@@ -8,7 +8,7 @@ public record MatchingCreateRequest(
         @Schema(description = "사용자 ID", example = "1")
         Integer userId,
 
-        @Schema(description = "장인 ID", example = "10")
+        @Schema(description = "장인 ID", example = "1")
         Integer artisanId,
 
         @Schema(description = "쪽지 본문 (최대 250자)", example = "안녕하세요, 작품 관련 상담을 원합니다.")

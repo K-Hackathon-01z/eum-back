@@ -5,6 +5,7 @@ import com._z.eum.matching.dto.ArtisanMessageResponse;
 import com._z.eum.matching.dto.MatchingCreateRequest;
 import com._z.eum.matching.service.MatchingRequestService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/matching-requests")
+@Tag(name = "매칭 요청 API", description = "매칭 요청, 조회(사용자/ 장인), 읽음처리 제공")
 public class MatchingRequestController {
 
     private final MatchingRequestService service;

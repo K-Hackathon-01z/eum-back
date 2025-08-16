@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface MatchingRequestRepository extends JpaRepository<MatchingRequest, Integer> {
 
+    List<MatchingRequest> findByUserIdOrderByRequestDateDesc(Integer userId);
+
     List<MatchingRequest> findByArtisanIdOrderByRequestDateDesc(Integer artisanId);
 
     List<MatchingRequest> findByArtisanIdAndReadFalseOrderByRequestDateDesc(Integer artisanId);

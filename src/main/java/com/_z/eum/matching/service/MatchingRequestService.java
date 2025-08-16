@@ -105,6 +105,22 @@ public class MatchingRequestService {
         }).toList();
     }
 
+    @Transactional(readOnly = true)
+    public List<ArtisanMessageResponse> listForUser(Integer userId) {
+        List<MatchingRequest> list = matchingRepo.findByUserIdOrderByRequestDateDesc(userId);
+
+        return list.stream().map(mr -> new ArtisanMessageResponse(
+                mr.getId(),
+                mr.isAnonymous(),
+                mr.getMessage(),
+                mr.getRequestDate(),
+                mr.isRead(),
+                mr.getReadAt(),
+                null, null, null // 사용자 본인이 보는 거라 sender 정보 필요 없음
+        )).toList();
+    }
+
+
     @Transactional
     public void markRead(Integer artisanId, Integer messageId) {
         com._z.eum.matching.entity.MatchingRequest mr = matchingRepo.findById(messageId)

@@ -38,6 +38,15 @@ public class MatchingRequestController {
         return ResponseEntity.ok(service.listForArtisan(artisanId, unreadOnly));
     }
 
+    @GetMapping("/user/{userId}")
+    @Operation(summary = "사용자 본인이 보낸 쪽지 목록", description = "사용자가 자신이 보낸 모든 쪽지를 확인")
+    public ResponseEntity<List<ArtisanMessageResponse>> listForUser(
+            @PathVariable Integer userId
+    ) {
+        return ResponseEntity.ok(service.listForUser(userId));
+    }
+
+
     // 읽음 처리
     @PatchMapping("/artisan/{artisanId}/{messageId}/read")
     @Operation(summary = "쪽지 읽음 처리", description = "장인이 자신의 쪽지를 읽음 처리")

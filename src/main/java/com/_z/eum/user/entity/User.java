@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "users")
 public class User {
 
@@ -20,9 +21,9 @@ public class User {
 
     private int age;
 
-    private String address;
+    private String gender;
 
-    private Boolean isVerified;
+    private String address;
 
     protected User (){}
 

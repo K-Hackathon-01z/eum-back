@@ -55,6 +55,18 @@ public class AuthService {
         userRepository.save(user);
     }
 
+    // 로그인
+    public void login(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("가입 된 회원이 아닙니다."));
+
+        VerificationToken token = authRepository.findTopByEmailOrderByCreatedAtDesc(email)
+                .orElseThrow(() -> new RuntimeException("이메일 인증을 먼저 진행해주세요."));
+
+        if (!token.isVerified() || token.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("이메일 인증이 완료되지 않았습니다.");
+        }
+    }
 
     // 이메일 인증 코드 발송
     public void sendVerificationCode(String email) {

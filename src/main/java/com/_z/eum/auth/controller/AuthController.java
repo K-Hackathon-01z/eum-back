@@ -3,6 +3,7 @@ package com._z.eum.auth.controller;
 
 import com._z.eum.auth.dto.request.EmailConfirmRequest;
 import com._z.eum.auth.dto.request.EmailRequest;
+import com._z.eum.auth.dto.request.LoginRequest;
 import com._z.eum.auth.dto.request.SignupRequest;
 import com._z.eum.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,5 +50,15 @@ public class AuthController {
         authService.signup(request);
         return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 성공했습니다.");
     }
+
+    // 로그인
+    @PostMapping("/login")
+    @Operation(summary = "로그인", description = "이메일 인증 여부 확인 후 로그인")
+    public ResponseEntity<String> login(@RequestBody LoginRequest request) {
+        authService.login(request.email());
+        return ResponseEntity.ok("로그인 성공했습니다.");
+    }
+
+
 
 }

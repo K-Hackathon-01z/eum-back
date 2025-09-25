@@ -1,6 +1,5 @@
 package com._z.eum.user.entity;
 
-import com._z.eum.user.dto.request.SignupRequest;
 import io.swagger.v3.oas.annotations.info.Contact;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,17 +22,8 @@ public class User {
 
     private String address;
 
-    @Setter
-    private String password;
+    private Boolean isVerified;
 
     protected User (){}
-
-    public User(SignupRequest signupRequest){
-        this.email = signupRequest.email();
-        this.address = signupRequest.address();
-        this.name = signupRequest.name();
-        this.age = signupRequest.age();
-        this.password =signupRequest.password();
-    }
 
 }

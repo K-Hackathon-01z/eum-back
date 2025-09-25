@@ -1,6 +1,5 @@
 package com._z.eum.user.entity;
 
-import com._z.eum.user.dto.request.SignupRequest;
 import io.swagger.v3.oas.annotations.info.Contact;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +7,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "users")
 public class User {
 
@@ -21,19 +21,10 @@ public class User {
 
     private int age;
 
+    private String gender;
+
     private String address;
 
-    @Setter
-    private String password;
-
-    protected User (){}
-
-    public User(SignupRequest signupRequest){
-        this.email = signupRequest.email();
-        this.address = signupRequest.address();
-        this.name = signupRequest.name();
-        this.age = signupRequest.age();
-        this.password =signupRequest.password();
-    }
+    public User(){}
 
 }

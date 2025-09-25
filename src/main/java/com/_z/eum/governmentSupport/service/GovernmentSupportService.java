@@ -8,6 +8,7 @@ import com._z.eum.governmentSupport.entity.GovernmentSupport;
 import com._z.eum.governmentSupport.entity.UserSupportResult;
 import com._z.eum.governmentSupport.repository.GovernmentSupportRepository;
 import com._z.eum.governmentSupport.repository.UserSupportResultRepository;
+import com._z.eum.user.dto.response.UserResponse;
 import com._z.eum.user.entity.User;
 import com._z.eum.user.service.UserService;
 import org.springframework.stereotype.Service;
@@ -36,10 +37,10 @@ public class GovernmentSupportService {
     }
     public List<GovernmentSupportResponse> recommendSupports(Integer userId) {
         System.out.println("[추천 시작] userId: " + userId);
-        User user = userService.getUserById(userId);
-        System.out.println("[유저 정보] 나이: " + user.getAge() + ", 주소: " + user.getAddress());
-        int age = user.getAge();
-        String location = user.getAddress();
+        UserResponse user = userService.getUserById(userId);
+        System.out.println("[유저 정보] 나이: " + user.age() + ", 주소: " + user.address());
+        int age = user.age();
+        String location = user.address();
 
         Optional<UserSupportResult> recent = userSupportRepo.findTopByUserIdOrderByRecommendedAtDesc(userId);
 

@@ -1,0 +1,122 @@
+package com._z.eum.auth.service;
+
+import com._z.eum.auth.dto.request.SignupRequest;
+import com._z.eum.auth.entity.VerificationToken;
+import com._z.eum.auth.repository.AuthRepository;
+import com._z.eum.user.entity.User;
+import com._z.eum.user.repository.UserRepository;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Random;
+
+
+@Service
+public class AuthService {
+
+
+    private final AuthRepository authRepository;
+    private final JavaMailSender javaMailSender;
+    private final UserRepository userRepository;
+
+    public AuthService(AuthRepository authRepository,
+                       JavaMailSender javaMailSender,
+                       UserRepository userRepository){
+        this.authRepository = authRepository;
+        this.javaMailSender = javaMailSender;
+        this.userRepository = userRepository;
+
+    }
+
+    // 회원가입
+    public void signup(SignupRequest request) {
+        // 이미 가입된 이메일이면 에러
+        if (userRepository.findByEmail(request.email()).isPresent()) {
+            throw new RuntimeException("이미 가입된 이메일입니다.");
+        }
+
+        // 최신 인증 토큰 확인
+        VerificationToken token = authRepository.findTopByEmailOrderByCreatedAtDesc(request.email())
+                .orElseThrow(() -> new RuntimeException("이메일 인증을 먼저 진행해주세요."));
+
+        if (!token.isVerified() || token.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("이메일 인증이 완료되지 않았습니다.");
+        }
+
+        // 회원 저장
+        User user = new User();
+        user.setEmail(request.email());
+        user.setName(request.name());
+        user.setAge(request.age());
+        user.setGender(request.gender());
+        user.setAddress(request.address());
+        userRepository.save(user);
+    }
+
+    // 로그인
+    public void login(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("가입 된 회원이 아닙니다."));
+
+        VerificationToken token = authRepository.findTopByEmailOrderByCreatedAtDesc(email)
+                .orElseThrow(() -> new RuntimeException("이메일 인증을 먼저 진행해주세요."));
+
+        if (!token.isVerified() || token.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("이메일 인증이 완료되지 않았습니다.");
+        }
+    }
+
+    // 이메일 인증 코드 발송
+    public void sendVerificationCode(String email) {
+
+        //코드 생성
+        String code = generateCode();
+
+        //생성된 코드 DB 저장
+        VerificationToken token = new VerificationToken(email, code, 5);
+        authRepository.save(token);
+
+        //이메일 전송
+        sendEmail(email, code);
+    }
+
+    // 이메일 인증 확인
+    public void verifyCode(String email, String code) {
+
+        //DB에서 생성된 코드 조회
+        VerificationToken token = authRepository.findTopByEmailOrderByCreatedAtDesc(email)
+                .orElseThrow(() -> new RuntimeException("인증 요청이 없습니다."));
+
+
+        //인증 코드 만료 확인
+        if (token.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("인증 코드 만료되었습니다.");
+        }
+
+        //인증 코드 불일치 확인
+        if (!token.getCode().equals(code)) {
+            throw new RuntimeException("인증 코드가 불일치합니다.");
+        }
+
+        //인증 정보 저장
+        token.setVerified(true);
+        authRepository.save(token);
+    }
+
+
+    //코드 생성
+    private String generateCode() {
+        return String.valueOf(new Random().nextInt(900000) + 100000); // 6자리
+    }
+
+    private void sendEmail(String to, String code) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setFrom("vvin506@naver.com");
+        message.setSubject("[이음] 이메일 인증 코드");
+        message.setText("인증 코드: " + code);
+        javaMailSender.send(message);
+    }
+}

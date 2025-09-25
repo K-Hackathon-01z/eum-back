@@ -25,6 +25,6 @@ public class User {
 
     private String address;
 
-    protected User (){}
+    public User(){}
 
 }

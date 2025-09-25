@@ -1,7 +1,10 @@
 package com._z.eum.auth.service;
 
+import com._z.eum.auth.dto.request.SignupRequest;
 import com._z.eum.auth.entity.VerificationToken;
 import com._z.eum.auth.repository.AuthRepository;
+import com._z.eum.user.entity.User;
+import com._z.eum.user.repository.UserRepository;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -16,13 +19,42 @@ public class AuthService {
 
     private final AuthRepository authRepository;
     private final JavaMailSender javaMailSender;
+    private final UserRepository userRepository;
 
     public AuthService(AuthRepository authRepository,
-                       JavaMailSender javaMailSender){
+                       JavaMailSender javaMailSender,
+                       UserRepository userRepository){
         this.authRepository = authRepository;
         this.javaMailSender = javaMailSender;
+        this.userRepository = userRepository;
 
     }
+
+    // 회원가입
+    public void signup(SignupRequest request) {
+        // 이미 가입된 이메일이면 에러
+        if (userRepository.findByEmail(request.email()).isPresent()) {
+            throw new RuntimeException("이미 가입된 이메일입니다.");
+        }
+
+        // 최신 인증 토큰 확인
+        VerificationToken token = authRepository.findTopByEmailOrderByCreatedAtDesc(request.email())
+                .orElseThrow(() -> new RuntimeException("이메일 인증을 먼저 진행해주세요."));
+
+        if (!token.isVerified() || token.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("이메일 인증이 완료되지 않았습니다.");
+        }
+
+        // 회원 저장
+        User user = new User();
+        user.setEmail(request.email());
+        user.setName(request.name());
+        user.setAge(request.age());
+        user.setGender(request.gender());
+        user.setAddress(request.address());
+        userRepository.save(user);
+    }
+
 
     // 이메일 인증 코드 발송
     public void sendVerificationCode(String email) {
@@ -75,8 +107,4 @@ public class AuthService {
         message.setText("인증 코드: " + code);
         javaMailSender.send(message);
     }
-
-
-
-
 }

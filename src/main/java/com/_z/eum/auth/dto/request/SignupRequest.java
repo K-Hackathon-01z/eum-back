@@ -3,6 +3,8 @@ package com._z.eum.auth.dto.request;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 
+
+@Schema(description = "회원가입 요청 DTO")
 public record SignupRequest(
 
         @Email

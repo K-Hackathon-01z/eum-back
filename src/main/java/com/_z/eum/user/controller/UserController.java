@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@Tag(name = "사용자 API", description = "회원가입, 로그인, 사용자 정보 조회, 수정, 삭제 기능 제공")
+@Tag(name = "사용자 API", description = "사용자 정보 조회, 수정, 삭제 기능 제공")
 public class UserController {
 
     private final UserService userService;

@@ -13,9 +13,9 @@ public class SkillCategory {
     private int id;
     private String name;
     private  String category;
-    String description;
-    String imageUrl;
-    String careerPath;
+    private String description;
+    private String imageUrl;
+    private String careerPath;
 
     protected SkillCategory(){}
 

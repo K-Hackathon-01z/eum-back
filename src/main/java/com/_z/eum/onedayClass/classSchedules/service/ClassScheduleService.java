@@ -23,6 +23,11 @@ public class ClassScheduleService {
         Classes classes = classesRepository.findById(dto.classId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 클래스가 존재하지 않습니다."));
 
+        // 중복 체크
+        if (classScheduleRepository.existsByClasses_IdAndDateAndTimeSlot(dto.classId(), dto.date(), dto.timeSlot())) {
+            throw new IllegalArgumentException("해당 클래스에 동일한 날짜와 시간의 일정이 이미 존재합니다.");
+        }
+
         ClassSchedule schedule = ClassSchedule.builder()
                 .classes(classes)
                 .date(dto.date())
@@ -62,6 +67,16 @@ public class ClassScheduleService {
 
         Classes classes = classesRepository.findById(dto.classId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 클래스가 존재하지 않습니다."));
+
+        // 중복 체크
+        boolean existsDuplicate = classScheduleRepository
+                .existsByClasses_IdAndDateAndTimeSlot(dto.classId(), dto.date(), dto.timeSlot());
+
+        if (existsDuplicate && !(schedule.getClasses().getId() == dto.classId()
+                && schedule.getDate().equals(dto.date())
+                && schedule.getTimeSlot().equals(dto.timeSlot()))) {
+            throw new IllegalArgumentException("해당 클래스에 동일한 날짜와 시간의 일정이 이미 존재합니다.");
+        }
 
         schedule.setClasses(classes);
         schedule.setDate(dto.date());

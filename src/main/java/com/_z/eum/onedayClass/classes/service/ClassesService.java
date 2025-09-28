@@ -35,6 +35,8 @@ public class ClassesService {
     // 생성
     public ClassesResponse createClass(ClassesRequest dto) {
         Classes entity = toEntity(dto);
+        // 관심 인원은 항상 0으로 시작
+        entity.setInterestedCount(0);
         return toResponse(classesRepository.save(entity));
     }
 
@@ -54,7 +56,6 @@ public class ClassesService {
         entity.setPrice(dto.price());
         entity.setLocation(dto.location());
         entity.setCapacity(dto.capacity());
-        entity.setInterestedCount(dto.interestedCount());
 
         return toResponse(classesRepository.save(entity));
     }
@@ -95,7 +96,6 @@ public class ClassesService {
                 .price(dto.price())
                 .location(dto.location())
                 .capacity(dto.capacity())
-                .interestedCount(dto.interestedCount())
                 .build();
     }
 }

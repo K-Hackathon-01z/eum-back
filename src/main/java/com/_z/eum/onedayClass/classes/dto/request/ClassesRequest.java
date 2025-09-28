@@ -20,7 +20,7 @@ public record ClassesRequest(
         @Schema(description = "클래스 설명", example = "목공 기초 — 선반 만들기는 목공 기초부터 시작하여 선반을 만드는 아주아주 재밌는 원데이 클래스입니다.")
         String description,
 
-        @Schema(description = "클래스 가격", example = "56,000")
+        @Schema(description = "클래스 가격", example = "56000")
         int price,
 
         @Schema(description = "클래스 위치", example = "서울특별시 광진구")

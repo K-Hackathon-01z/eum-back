@@ -10,9 +10,9 @@ spring:
     password:
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect  # H2 맞춤 SQL 생성
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create   # 테이블 새로 생성 (drop 에러 방지)
+      ddl-auto: update
     show-sql: true
 
   mail:

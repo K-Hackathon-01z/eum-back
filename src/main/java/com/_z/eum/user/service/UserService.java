@@ -73,6 +73,7 @@ public class UserService {
     // Entity → DTO 변환
     private UserResponse toResponse(User user) {
         return new UserResponse(
+                user.getId(),
                 user.getEmail(),
                 user.getName(),
                 user.getAge(),

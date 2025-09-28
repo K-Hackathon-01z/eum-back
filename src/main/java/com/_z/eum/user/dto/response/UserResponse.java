@@ -6,14 +6,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 @Schema(description = "사용자 정보 응답 DTO")
 public record UserResponse(
 
-         String email,
+        int id,
 
-         String name,
+        String email,
 
-         int age,
+        String name,
 
-         String gender,
+        int age,
 
-         String address
+        String gender,
+
+        String address
 )
 { }

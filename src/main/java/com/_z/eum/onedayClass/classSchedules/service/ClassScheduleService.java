@@ -68,7 +68,7 @@ public class ClassScheduleService {
         Classes classes = classesRepository.findById(dto.classId())
                 .orElseThrow(() -> new IllegalArgumentException("해당 클래스가 존재하지 않습니다."));
 
-        // 중복 체크
+        // 중복 체크d
         boolean existsDuplicate = classScheduleRepository
                 .existsByClasses_IdAndDateAndTimeSlot(dto.classId(), dto.date(), dto.timeSlot());
 

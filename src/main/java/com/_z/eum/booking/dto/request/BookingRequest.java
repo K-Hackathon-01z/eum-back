@@ -12,11 +12,5 @@ public record BookingRequest(
         int scheduleId,
 
         @Schema(description = "사용자 ID", example = "10")
-        int userId,
-
-        @Schema(description = "예약 날짜", example = "2025-10-03")
-        LocalDate date,
-
-        @Schema(description = "예약 시간", example = "14:00:00")
-        LocalTime timeSlot
+        int userId
 ) {}

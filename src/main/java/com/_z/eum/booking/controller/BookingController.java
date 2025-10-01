@@ -39,7 +39,6 @@ public class BookingController {
     }
 
 
-
     // 사용자별 예약 조회
     @GetMapping("/user/{userId}")
     @Operation(summary = "사용자별 예약 조회", description = "사용자 ID로 해당 사용자의 모든 예약 조회")
@@ -64,18 +63,19 @@ public class BookingController {
     }
 
 
+    // 예약 취소
+    @PatchMapping("/cancel/{id}")
+    @Operation(summary = "예약 취소", description = "예약 ID로 예약을 취소")
+    public ResponseEntity<BookingResponse> cancelBooking(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.cancelBooking(id));
+    }
 
 
-
-
-
-    //예약 취소
-
-
-
-
-
-
-
+    // 예약 완료 처리
+    @PatchMapping("/complete/{id}")
+    @Operation(summary = "예약 완료", description = "예약 ID로 예약을 완료 처리")
+    public ResponseEntity<BookingResponse> completeBooking(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.completeBooking(id));
+    }
 
 }

@@ -10,6 +10,7 @@ import com._z.eum.onedayClass.classSchedules.repository.ClassScheduleRepository;
 import com._z.eum.user.entity.User;
 import com._z.eum.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,7 +37,6 @@ public class BookingService {
     }
 
 
-
     //단일 예약 조회
     public BookingResponse getBookingById(Long id) {
         return bookingRepository.findById(id)
@@ -59,7 +59,6 @@ public class BookingService {
                 .map(this::toResponse)
                 .toList();
     }
-
 
 
 
@@ -103,7 +102,43 @@ public class BookingService {
 
 
 
-    //예약 취소
+    // 예약 취소
+    @Transactional
+    public BookingResponse cancelBooking(Long id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("예약이 존재하지 않습니다."));
+
+        if (booking.getState() == BookingState.CANCELED) {
+            throw new IllegalStateException("이미 취소된 예약입니다.");
+        }
+
+        if (booking.getState() == BookingState.COMPLETED) {
+            throw new IllegalStateException("이미 완료된 예약은 취소할 수 없습니다.");
+        }
+
+        booking.setState(BookingState.CANCELED);
+
+        // 정원 차감
+        ClassSchedule schedule = booking.getSchedule();
+        schedule.setCurrentCount(Math.max(0, schedule.getCurrentCount() - 1));
+
+        return toResponse(bookingRepository.save(booking));
+    }
+
+
+    @Transactional
+    public BookingResponse completeBooking(Long id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("예약이 존재하지 않습니다."));
+
+        if (booking.getState() == BookingState.CANCELED) {
+            throw new IllegalStateException("취소된 예약은 완료 처리할 수 없습니다.");
+        }
+
+        booking.setState(BookingState.COMPLETED);
+        return toResponse(bookingRepository.save(booking));
+    }
+
 
 
     private BookingResponse toResponse(Booking booking){
@@ -116,11 +151,4 @@ public class BookingService {
                 booking.getState().name()
         );
     }
-
-
-
-
-
-
-
 }

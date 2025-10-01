@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/class-schedules")
-@Tag(name = "클래스 일정 API", description = "클래스 일정 등록, 조회, 수정, 삭제 기능 제공")
+@Tag(name = "원데이 클래스 일정 API", description = "클래스 일정 등록, 조회, 수정, 삭제 기능 제공")
 public class ClassScheduleController {
 
     private final ClassScheduleService classScheduleService;

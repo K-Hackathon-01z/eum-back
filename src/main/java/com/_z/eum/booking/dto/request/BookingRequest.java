@@ -11,6 +11,6 @@ public record BookingRequest(
         @Schema(description = "일정 ID", example = "1")
         int scheduleId,
 
-        @Schema(description = "사용자 ID", example = "10")
+        @Schema(description = "사용자 ID", example = "3")
         int userId
 ) {}

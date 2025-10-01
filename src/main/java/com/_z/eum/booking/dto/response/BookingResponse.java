@@ -8,10 +8,10 @@ import java.time.LocalTime;
 @Schema(description = "예약 응답 DTO")
 public record BookingResponse(
 
-        @Schema(description = "예약 ID", example = "100")
+        @Schema(description = "예약 ID", example = "13")
         int id,
 
-        @Schema(description = "일정 ID", example = "1")
+        @Schema(description = "일정 ID", example = "2")
         int scheduleId,
 
         @Schema(description = "사용자 ID", example = "10")

@@ -53,9 +53,15 @@ public class BookingService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 아이디의 사용자가 존재하지 않습니다."));
 
         // 중복 예외처리
+        boolean alreadyBooking = bookingRepository.existsBySchedule_IdAndUser_Id(bookingRequest.scheduleId(),bookingRequest.userId());
+        if (alreadyBooking) {
+            throw new IllegalStateException("이미 해당 일정에 예약을 했습니다.");
+        }
 
-        // 예약  정원 초과 방지
-
+        // 예약 정원 초과 방지
+        if (classSchedule.getCurrentCount() >= classSchedule.getCapacity()) {
+            throw new IllegalStateException("해당 일정의 정원이 초과되어 예약할 수 없습니다.");
+        }
 
         //예약 생성
         Booking booking = Booking.builder()

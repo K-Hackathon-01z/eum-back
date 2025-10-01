@@ -1,14 +1,13 @@
 package com._z.eum.booking.controller;
 
 
+import com._z.eum.booking.dto.request.BookingRequest;
 import com._z.eum.booking.dto.response.BookingResponse;
 import com._z.eum.booking.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    public BookingController(BookingService bookingService){
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
@@ -27,18 +26,22 @@ public class BookingController {
     //전체 에약 조회
     @GetMapping("/all")
     @Operation(summary = "전체 예약 조회", description = "저장된 모든 예약을 조회")
-    public ResponseEntity<List<BookingResponse>> getAllBooking(){
+    public ResponseEntity<List<BookingResponse>> getAllBooking() {
         return ResponseEntity.ok(bookingService.getAllBookings());
     }
-
 
 
     //단일 예약 조회
 
 
-
-
     //예약 생성
+    @PostMapping
+    @Operation(summary = "예약 생성", description = "새로운 예약 생성")
+    public ResponseEntity<BookingResponse> createBooking(@RequestBody BookingRequest bookingRequest) {
+
+    return ResponseEntity.ok(bookingService.createBooking(bookingRequest));
+    }
+
 
 
 

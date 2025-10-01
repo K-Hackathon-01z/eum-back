@@ -45,6 +45,23 @@ public class BookingService {
     }
 
 
+    //사용자의 모든 예약 조회
+    public List<BookingResponse> getBookingsByUser(int userId) {
+        return bookingRepository.findByUserId(userId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+
+    //클래스 일정의 모든 예약 조회
+    public List<BookingResponse> getBookingsBySchedule(int scheduleId) {
+        return bookingRepository.findByScheduleId(scheduleId).stream()
+                .map(this::toResponse)
+                .toList();
+    }
+
+
+
 
     //예약 생성
     public BookingResponse createBooking(BookingRequest bookingRequest){

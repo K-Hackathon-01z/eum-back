@@ -40,6 +40,21 @@ public class BookingController {
 
 
 
+    // 사용자별 예약 조회
+    @GetMapping("/user/{userId}")
+    @Operation(summary = "사용자별 예약 조회", description = "사용자 ID로 해당 사용자의 모든 예약 조회")
+    public ResponseEntity<List<BookingResponse>> getBookingsByUser(@PathVariable int userId) {
+        return ResponseEntity.ok(bookingService.getBookingsByUser(userId));
+    }
+
+    // 일정별 예약 조회
+    @GetMapping("/schedule/{scheduleId}")
+    @Operation(summary = "일정별 예약 조회", description = "일정 ID로 해당 일정의 모든 예약 조회")
+    public ResponseEntity<List<BookingResponse>> getBookingsBySchedule(@PathVariable int scheduleId) {
+        return ResponseEntity.ok(bookingService.getBookingsBySchedule(scheduleId));
+    }
+
+
     //예약 생성
     @PostMapping
     @Operation(summary = "예약 생성", description = "새로운 예약 생성")

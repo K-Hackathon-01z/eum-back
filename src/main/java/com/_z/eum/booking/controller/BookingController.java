@@ -31,7 +31,13 @@ public class BookingController {
     }
 
 
-    //단일 예약 조회
+    // 단일 예약 조회
+    @GetMapping("/{id}")
+    @Operation(summary = "예약 단일 조회", description = "예약 ID로 예약을 조회")
+    public ResponseEntity<BookingResponse> getBookingById(@PathVariable Long id) {
+        return ResponseEntity.ok(bookingService.getBookingById(id));
+    }
+
 
 
     //예약 생성

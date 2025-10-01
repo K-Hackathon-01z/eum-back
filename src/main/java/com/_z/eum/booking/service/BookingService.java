@@ -38,6 +38,11 @@ public class BookingService {
 
 
     //단일 예약 조회
+    public BookingResponse getBookingById(Long id) {
+        return bookingRepository.findById(id)
+                .map(this::toResponse)
+                .orElseThrow(() -> new IllegalArgumentException("예약이 존재하지 않습니다."));
+    }
 
 
 

@@ -40,10 +40,10 @@ public class ArtisanService {
                 .toList();
     }
 
-    // id로 단일 장인 조회
-    public ArtisanResponse getArtisanById(Integer id) {
-        Artisan artisan = artisanRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("장인을 찾을 수 없습니다. id=" + id));
+    // 이메일로 단일 장인 조회
+    public ArtisanResponse getArtisanByEmail(String email) {
+        Artisan artisan = artisanRepository.findByEmail(email)
+                .orElseThrow(() -> new NoSuchElementException("장인을 찾을 수 없습니다. email=" + email));
         return toResponse(artisan);
     }
 

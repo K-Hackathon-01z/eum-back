@@ -46,11 +46,11 @@ public class ArtisanController {
         return ResponseEntity.ok(artisanService.getAllArtisan());
     }
 
-    // 아이디로 조회
-    @GetMapping("/{id}")
-    @Operation(summary = "아이디로 단일 장인 정보 조회", description = "장인 고유 id로 해당 장인의 정보 조회")
-    public ResponseEntity<ArtisanResponse> getOne(@PathVariable Integer id){
-        return ResponseEntity.ok(artisanService.getArtisanById(id));
+    // 이메일로 조회
+    @GetMapping("/email/{email}")
+    @Operation(summary = "이메일로 단일 장인 정보 조회", description = "장인 이메일로 해당 장인의 정보 조회")
+    public ResponseEntity<ArtisanResponse> getOneByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(artisanService.getArtisanByEmail(email));
     }
 
     // 아이디로 삭제

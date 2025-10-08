@@ -5,13 +5,17 @@ import com._z.eum.artisan.dto.request.ArtisanInfoUpdateRequest;
 import com._z.eum.artisan.dto.request.ArtisanRequest;
 import com._z.eum.artisan.dto.response.ArtisanResponse;
 import com._z.eum.artisan.service.ArtisanService;
+import com._z.eum.global.s3.DefaultImageUrl;
+import com._z.eum.global.s3.S3UploadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -21,13 +25,20 @@ import java.util.List;
 public class ArtisanController {
 
     private final ArtisanService artisanService;
+    private final S3UploadService s3UploadService;
+
 
     // 등록
     @PostMapping
-    @Operation(summary = "장인 회원가입", description = "이메일, 이름, 사진, 작품, 약력을 받아 회원가입 성공여부 반환")
-    public ResponseEntity<String> create(@Valid @RequestBody ArtisanRequest request){
-        artisanService.create(request);
-        return ResponseEntity.ok("회원가입 성공하였습니다.");
+    @Operation(summary = "장인 회원가입", description = "이미지 업로드 후 URL 자동 저장 (없으면 기본 이미지 사용)")
+    public ResponseEntity<String> create(@RequestBody @Valid ArtisanRequest request) {
+
+        String photoUrl = (request.photoUrl() == null || request.photoUrl().isBlank())
+                ? DefaultImageUrl.ARTISAN
+                : request.photoUrl();
+
+        artisanService.create(request, photoUrl);
+        return ResponseEntity.ok("회원가입이 완료되었습니다.");
     }
 
     // 정보 수정

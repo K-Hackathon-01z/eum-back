@@ -21,14 +21,15 @@ public class ArtisanService {
         this.artisanRepository = artisanRepository;
     }
 
+
     //등록
     @Transactional
-    public void create(ArtisanRequest artisanRequest) {
-        if (artisanRepository.findByEmail(artisanRequest.email()).isPresent()) {
-            throw new IllegalArgumentException("이미 장인으로 등록된 이메일입니다.");
+    public void create(ArtisanRequest request, String photoUrl) {
+        if (artisanRepository.findByEmail(request.email()).isPresent()) {
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
-        Artisan newArtisan = new Artisan(artisanRequest);
 
+        Artisan newArtisan = new Artisan(request, photoUrl);
         artisanRepository.save(newArtisan);
     }
 

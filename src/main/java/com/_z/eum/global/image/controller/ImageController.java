@@ -1,5 +1,5 @@
 
-package com._z.eum.global.controller;
+package com._z.eum.global.image.controller;
 
 import com._z.eum.global.s3.S3UploadService;
 import io.swagger.v3.oas.annotations.Operation;

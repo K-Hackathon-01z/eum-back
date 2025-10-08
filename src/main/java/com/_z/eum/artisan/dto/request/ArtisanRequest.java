@@ -21,6 +21,6 @@ public record ArtisanRequest(
         @Schema(description = "약력", example = "30년 경력의 금속 공예 장인")
         String biography,
 
-        @Schema(description = "사진 URL (없으면 서버 기본 이미지 사용)", example = "")
+        @Schema(description = "사진 URL (없으면 서버 기본 이미지 사용)", example = " ")
         String photoUrl
 ) {}

@@ -36,7 +36,6 @@ public class MatchingRequestService {
     }
 
 
-
     @Transactional
     public Integer create(MatchingCreateRequest dto) {
 
@@ -138,5 +137,25 @@ public class MatchingRequestService {
                 .filter(n -> n.getMatchingRequestId().equals(messageId))
                 .findFirst()
                 .ifPresent(Notification::markRead);
+    }
+
+
+    // 삭제 로직
+    @Transactional
+    public void deleteByArtisan(Integer artisanId, Integer messageId) {
+        MatchingRequest mr = matchingRepo.findById(messageId)
+                .orElseThrow(() -> new IllegalArgumentException("쪽지를 찾을 수 없습니다."));
+
+        // 권한 검증
+        if (!mr.getArtisanId().equals(artisanId)) {
+            throw new IllegalArgumentException("이 쪽지를 삭제할 권한이 없습니다.");
+        }
+
+        // 관련 알림 존재 시 함께 삭제
+        notifRepo.findByMatchingRequestId(messageId)
+                .ifPresent(notifRepo::delete);
+
+        // 쪽지 삭제
+        matchingRepo.delete(mr);
     }
 }

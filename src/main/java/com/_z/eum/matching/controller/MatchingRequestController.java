@@ -49,6 +49,17 @@ public class MatchingRequestController {
     }
 
 
+    @DeleteMapping("/artisan/{artisanId}/{messageId}")
+    @Operation(summary = "장인 쪽지 삭제", description = "장인이 자신이 받은 쪽지를 삭제")
+    public ResponseEntity<Void> deleteByArtisan(
+            @PathVariable Integer artisanId,
+            @PathVariable Integer messageId
+    ) {
+        service.deleteByArtisan(artisanId, messageId);
+        return ResponseEntity.noContent().build();
+    }
+
+
     // 읽음 처리
     @PatchMapping("/artisan/{artisanId}/{messageId}/read")
     @Operation(summary = "쪽지 읽음 처리", description = "장인이 자신의 쪽지를 읽음 처리")

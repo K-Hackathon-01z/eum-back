@@ -99,7 +99,8 @@ public class MatchingRequestService {
                     mr.getRequestDate(),
                     mr.isRead(),
                     mr.getReadAt(),
-                    name, email, age
+                    name, email, age,
+                    null
             );
         }).toList();
     }
@@ -108,16 +109,23 @@ public class MatchingRequestService {
     public List<ArtisanMessageResponse> listForUser(Integer userId) {
         List<MatchingRequest> list = matchingRepo.findByUserIdOrderByRequestDateDesc(userId);
 
-        return list.stream().map(mr -> new ArtisanMessageResponse(
-                mr.getId(),
-                mr.isAnonymous(),
-                mr.getMessage(),
-                mr.getRequestDate(),
-                mr.isRead(),
-                mr.getReadAt(),
-                null, null, null // 사용자 본인이 보는 거라 sender 정보 필요 없음
-        )).toList();
+        return list.stream().map(mr -> {
+            Artisan artisan = artisanRepo.findById(mr.getArtisanId()).orElse(null);
+            String artisanName = (artisan != null) ? artisan.getName() : null;
+
+            return new ArtisanMessageResponse(
+                    mr.getId(),
+                    mr.isAnonymous(),
+                    mr.getMessage(),
+                    mr.getRequestDate(),
+                    mr.isRead(),
+                    mr.getReadAt(),
+                    null, null, null, // 사용자 본인이 보는 거라 sender 정보는 null
+                    artisanName       // 새로 추가된 필드
+            );
+        }).toList();
     }
+
 
 
     @Transactional

@@ -27,9 +27,12 @@ public record ArtisanMessageResponse(
         @Schema(description = "보낸 사용자 이름 (익명이면 null)", example = "김보빈")
         String senderName,
 
-        @Schema(description = "보낸 사용자 이메일 (익명이면 null)", example = "bobin@example.com")
+        @Schema(description = "보낸 사용자 이메일 (익명이면 null)", example = "bovin@example.com")
         String senderEmail,
 
         @Schema(description = "보낸 사용자 나이 (익명이면 null)", example = "25")
-        Integer senderAge
+        Integer senderAge,
+
+        @Schema(description = "수신 장인 이름", example = "이은수 장인")
+        String artisanName
 ) {}

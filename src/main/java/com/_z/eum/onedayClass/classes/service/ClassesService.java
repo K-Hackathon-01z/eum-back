@@ -32,13 +32,31 @@ public class ClassesService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 클래스가 존재하지 않습니다."));
     }
 
-    // 생성
+    // 생성 (기존)
     public ClassesResponse createClass(ClassesRequest dto) {
-        Classes entity = toEntity(dto);
-        // 관심 인원은 항상 0으로 시작
-        entity.setInterestedCount(0);
+        return createClassWithUrl(dto, dto.photoUrl());
+    }
+
+    // 생성 (기본 이미지 처리 포함)
+    public ClassesResponse createClassWithUrl(ClassesRequest dto, String photoUrl) {
+        SkillCategory skillCategory = skillCategoryRepository.findById(dto.skillId())
+                .orElseThrow(() -> new IllegalArgumentException("해당 스킬이 존재하지 않습니다."));
+
+        Classes entity = Classes.builder()
+                .artisanId(dto.artisanId())
+                .skillCategory(skillCategory)
+                .title(dto.title())
+                .photoUrl(photoUrl)
+                .description(dto.description())
+                .price(dto.price())
+                .location(dto.location())
+                .capacity(dto.capacity())
+                .interestedCount(0)
+                .build();
+
         return toResponse(classesRepository.save(entity));
     }
+
 
     // 수정
     public ClassesResponse updateClass(int id, ClassesRequest dto) {

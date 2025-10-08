@@ -1,5 +1,6 @@
 package com._z.eum.onedayClass.classes.controller;
 
+import com._z.eum.global.s3.DefaultImageUrl;
 import com._z.eum.onedayClass.classes.dto.request.ClassesRequest;
 import com._z.eum.onedayClass.classes.dto.response.ClassesResponse;
 import com._z.eum.onedayClass.classes.service.ClassesService;
@@ -35,11 +36,17 @@ public class ClassesController {
         return ResponseEntity.ok(classesService.getClassById(id));
     }
 
-    // 클래스 생성
+    // 클래스 생성 (JSON 기반)
     @PostMapping
-    @Operation(summary = "클래스 등록", description = "새로운 원데이 클래스를 등록")
+    @Operation(summary = "클래스 등록", description = "S3 URL 또는 기본 이미지로 새로운 원데이 클래스 등록")
     public ResponseEntity<ClassesResponse> createClass(@RequestBody ClassesRequest request) {
-        return ResponseEntity.ok(classesService.createClass(request));
+
+        // photoUrl이 비어 있으면 기본 이미지 지정
+        String photoUrl = (request.photoUrl() == null || request.photoUrl().isBlank())
+                ? DefaultImageUrl.CLASS
+                : request.photoUrl();
+
+        return ResponseEntity.ok(classesService.createClassWithUrl(request, photoUrl));
     }
 
     // 클래스 수정

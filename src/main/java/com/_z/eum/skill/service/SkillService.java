@@ -88,9 +88,10 @@ public class SkillService {
 
     //기술 수정
     @Transactional
-    public SkillCategoryResponse updateSkill(String skillName, SkillCategoryUpdateRequest request){
+    public SkillCategoryResponse updateSkill(Integer id, SkillCategoryUpdateRequest request){
 
-        SkillCategory skillCategory = findSkillByName(skillName);
+        SkillCategory skillCategory = skillRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("기술을 찾을 수 없습니다. id=" + id));
 
         skillCategory.updateSkill(
                 request.category(),

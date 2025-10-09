@@ -47,9 +47,9 @@ public class SkillController {
 
     //관리자 모드 : 기술 카테고리 수정
     @Operation(summary = "[관리자] 기술 카테고리 수정", description = "특정 기술 카테고리 정보를 수정")
-    @PutMapping("/admin/{name}")
-    public ResponseEntity<SkillCategoryResponse> updateSkill(@PathVariable String skillName, @RequestBody SkillCategoryUpdateRequest request) {
-        return ResponseEntity.ok(skillService.updateSkill(skillName,request));
+    @PutMapping("/admin/{id}")
+    public ResponseEntity<SkillCategoryResponse> updateSkill(@PathVariable Integer id, @RequestBody SkillCategoryUpdateRequest request) {
+        return ResponseEntity.ok(skillService.updateSkill(id,request));
     }
 
     //관리자 모드 : 기술 카테고리 삭제
